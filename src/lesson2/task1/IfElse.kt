@@ -3,6 +3,8 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import javax.management.Query.and
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -122,7 +124,37 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    if ((c > a) && (c > b)) {
+        if (a < c + b) return -1
+        else
+            if (sqr(c) < sqr(a) + sqr(b)) return 0
+            else
+                if (sqr(c) > sqr(a) + sqr(b)) return 2
+                else
+                    if (sqr(c) == sqr(a) + sqr(b)) return 1
+    } else
+        if ((a > c) && (a > b)) {
+            if (a < c + b) return -1
+            else
+                if (sqr(a) < sqr(c) + sqr(b)) return 0
+                else
+                    if (sqr(a) > sqr(c) + sqr(b)) return 2
+                    else
+                        if (sqr(a) == sqr(b) + sqr(c)) return 1
+        } else
+            if ((b > a) && (b > c)) {
+                if (b < a + b) return -1
+                else
+                    if (sqr(b) < sqr(a) + sqr(c)) return 0
+                    else
+                        if (sqr(b) > sqr(a) + sqr(c)) return 2
+                        else
+                            if (sqr(b) == sqr(a) + sqr(c)) return 1
+            }
+    if ((a == 0.0) || (b == 0.0) || (c == 0.0)) return -1
+    return -1
+}
 
 /**
  * Средняя (3 балла)
