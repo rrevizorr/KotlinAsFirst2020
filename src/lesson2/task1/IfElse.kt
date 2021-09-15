@@ -6,6 +6,7 @@ import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import javax.management.Query.and
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
@@ -125,35 +126,14 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((c > a) && (c > b)) {
-        if (a < c + b) return -1
-        else
-            if (sqr(c) < sqr(a) + sqr(b)) return 0
-            else
-                if (sqr(c) > sqr(a) + sqr(b)) return 2
-                else
-                    if (sqr(c) == sqr(a) + sqr(b)) return 1
-    } else
-        if ((a > c) && (a > b)) {
-            if (a < c + b) return -1
-            else
-                if (sqr(a) < sqr(c) + sqr(b)) return 0
-                else
-                    if (sqr(a) > sqr(c) + sqr(b)) return 2
-                    else
-                        if (sqr(a) == sqr(b) + sqr(c)) return 1
-        } else
-            if ((b > a) && (b > c)) {
-                if (b < a + b) return -1
-                else
-                    if (sqr(b) < sqr(a) + sqr(c)) return 0
-                    else
-                        if (sqr(b) > sqr(a) + sqr(c)) return 2
-                        else
-                            if (sqr(b) == sqr(a) + sqr(c)) return 1
-            }
-    if ((a == 0.0) || (b == 0.0) || (c == 0.0)) return -1
-    return -1
+    val maxside = maxOf(a, b, c)
+    val minside = minOf(a, b, c)
+    val otherside = (a + b + c) - maxside - minside
+    if (maxside > (minside + otherside) || maxside < (otherside - minside)) return -1
+    if (maxside.pow(2) == minside.pow(2) + otherside.pow(2)) return 1
+    if (maxside.pow(2) > minside.pow(2) + otherside.pow(2)) return 2
+    if (maxside.pow(2) < minside.pow(2) + otherside.pow(2)) return 0
+    return 1
 }
 
 /**
