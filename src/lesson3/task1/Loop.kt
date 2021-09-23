@@ -89,7 +89,12 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    return if (n == 1 || n == 2) 1
+    else {
+        fib(n - 2) + fib(n - 1)
+    }
+}
 
 
 /**
@@ -130,7 +135,14 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var i = 1
+    while (true) {
+        if (i % m == 0 && i % n == 0) {
+            return i
+        } else i++
+    }
+}
 
 /**
  * Средняя (3 балла)
@@ -148,7 +160,16 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var reversedNumber = ""
+    var number = n
+    if (number == 0) return 0
+    while (number > 0) {
+        reversedNumber += (number % 10).toString()
+        number /= 10
+    }
+    return reversedNumber.toInt()
+}
 
 /**
  * Средняя (3 балла)
@@ -213,4 +234,27 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var number = 0
+    var maxFib = 0
+    var lenght = 0
+    while (lenght < n){
+        for (i in 1..n) {
+            number = fib(i)
+            while (number > 0) {
+                lenght++
+                number /= 10
+            }
+            if (lenght >= n && maxFib < fib(i)) {
+                maxFib = fib(i)
+                break
+            }
+        }
+    }
+    while (lenght != n) {
+        lenght--
+        maxFib /= 10
+    }
+    if (lenght == n) return maxFib % 10
+    return 1
+}
