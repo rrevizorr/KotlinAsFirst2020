@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -223,7 +224,30 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var number = 0
+    var maxSqr = 0
+    var lenght = 0
+    while (lenght < n){
+        for (i in 1..n) {
+            number = sqr(i)
+            while (number > 0) {
+                lenght++
+                number /= 10
+            }
+            if (lenght >= n && maxSqr < sqr(i)) {
+                maxSqr = sqr(i)
+                break
+            }
+        }
+    }
+    while (lenght != n) {
+        lenght--
+        maxSqr /= 10
+    }
+    if (lenght == n) return maxSqr % 10
+    return 1
+}
 
 /**
  * Сложная (5 баллов)
