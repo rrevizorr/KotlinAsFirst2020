@@ -226,7 +226,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var number = 0
+    var number: Int
     var maxSqr = 0
     var lenght = 0
     while (lenght < n){
@@ -260,7 +260,7 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var number = 0
+    var number: Int
     var maxFib = 0
     var lenght = 0
     while (lenght < n){
