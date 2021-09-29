@@ -92,10 +92,22 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    return if (n == 1 || n == 2) 1
-    else {
-        fib(n - 2) + fib(n - 1)
+    var previous = 1
+    var prePrevious = 1
+    var number = 1
+    when (n) {
+        1 -> 1
+        2 -> 1
+        else -> {
+            for (i in 3..n) {
+                number = prePrevious + previous
+                prePrevious = previous
+                previous = number
+            }
+            number
+        }
     }
+    return number
 }
 
 
