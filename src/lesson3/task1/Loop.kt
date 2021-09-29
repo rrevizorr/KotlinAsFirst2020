@@ -82,8 +82,8 @@ fun digitNumber(n: Int): Int = TODO()
  */
 fun fib(n: Int): Int {
     var z = 0
-    if (n == 1) return 1
     if (n == 2) return 1
+    if (n == 1) return 1
     else for (i in 3..n) {
         z = fib(n-1) + fib(n-2)
         return z
@@ -96,14 +96,27 @@ fun fib(n: Int): Int {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
-
+fun minDivisor(n: Int): Int {
+    var z = 2
+    if ((n % z) == 0) {
+        return z
+    }
+    else z += 1
+    return -1
+}
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var z = n-1
+    if ((n % z) == 0) {
+        return z
+    }
+    else z -= 1
+    return -1
+}
 
 /**
  * Простая (2 балла)
@@ -129,7 +142,14 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var k = n+1
+    if (((k % n) == 0) && ((k % n) == 0)) {
+        return k
+    }
+    else k += 1
+    return -1
+}
 
 /**
  * Средняя (3 балла)
