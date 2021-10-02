@@ -129,11 +129,14 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val maxside = maxOf(a, b, c)
     val minside = minOf(a, b, c)
     val otherside = (a + b + c) - maxside - minside
-    if (maxside > (minside + otherside) || maxside < (otherside - minside)) return -1
-    if (maxside.pow(2) == minside.pow(2) + otherside.pow(2)) return 1
-    if (maxside.pow(2) > minside.pow(2) + otherside.pow(2)) return 2
-    if (maxside.pow(2) < minside.pow(2) + otherside.pow(2)) return 0
-    return 1
+    return when {
+        maxside > (minside + otherside) -> -1
+        maxside < (otherside - minside) -> -1
+        maxside.pow(2) == minside.pow(2) + otherside.pow(2) -> 1
+        maxside.pow(2) > minside.pow(2) + otherside.pow(2) -> 2
+        maxside.pow(2) < minside.pow(2) + otherside.pow(2) -> 0
+        else -> -1
+    }
 }
 
 /**
@@ -144,15 +147,13 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return when {
-        ((a < c) && (c in a..b) && (d !in a..b)) -> (b - c)
-        ((a in c..d) && (b in c..d)) -> (b - a)
-        ((c in a..b) && (d in a..b)) -> (d - c)
-        ((c < a) && (a in c..d) && (b !in c..d)) -> (d - a)
-        ((b in c..d) && (a !in c..d)) -> (d - b)
-        ((d in a..b) && (c !in a..b)) -> (b - d)
-        ((a !in c..d) && (b !in c..d)) -> -1
-        else -> -1
-    }
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
+    a < c && c in a..b && d !in a..b -> b - c
+    a in c..d && b in c..d -> b - a
+    c in a..b && d in a..b -> d - c
+    c < a && a in c..d && b !in c..d -> d - a
+    b in c..d && a !in c..d -> d - b
+    d in a..b && c !in a..b -> b - d
+    a !in c..d && b !in c..d -> -1
+    else -> -1
 }

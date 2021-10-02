@@ -74,7 +74,8 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * 3600 + minute
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = (sagenes * 48 + arshins * 16 + vershoks) * 4.445 / 100
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
+    (sagenes * 48 + arshins * 16 + vershoks) * 4.445 / 100
 
 /**
  * Тривиальная (1 балл)
@@ -82,7 +83,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = (sagenes
  * Пользователь задает угол в градусах, минутах и секундах (например, 36 градусов 14 минут 35 секунд).
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
-fun angleInRadian(deg: Int, min: Int, sec: Int): Double = (((deg + min / 60.0 + sec / 3600.0) * PI)) / 180.0
+fun angleInRadian(deg: Int, min: Int, sec: Int): Double = (deg + min / 60.0 + sec / 3600.0) * PI / 180.0
 
 /**
  * Тривиальная (1 балл)
@@ -90,7 +91,7 @@ fun angleInRadian(deg: Int, min: Int, sec: Int): Double = (((deg + min / 60.0 + 
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = sqrt(sqr(x2 - x1) + sqr(y2 - y1))
 
 /**
  * Простая (2 балла)
@@ -117,10 +118,9 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val x1: Double = initial + (initial / 100.0 * percent)
-    val x2: Double = x1 + (x1 / 100.0 * percent)
-    val x3: Double = x2 + (x2 / 100.0 * percent)
-    return x3
+    val x1 = initial + (initial / 100.0 * percent)
+    val x2 = x1 + (x1 / 100.0 * percent)
+    return x2 + (x2 / 100.0 * percent)
 }
 
 
@@ -130,8 +130,5 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
  * Пользователь задает целое трехзначное число (например, 478).
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int {
-    val string = number.toString()
-    val reversedNumber = string.reversed()
-    return reversedNumber.toInt()
-}
+fun numberRevert(number: Int): Int = number % 10 * 100 + number / 10 % 10 * 10 + number / 100
+
