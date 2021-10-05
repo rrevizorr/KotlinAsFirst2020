@@ -130,8 +130,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val minside = minOf(a, b, c)
     val otherside = (a + b + c) - maxside - minside
     return when {
-        maxside > (minside + otherside) -> -1
-        maxside < (otherside - minside) -> -1
+        maxside > minside + otherside -> -1
+        maxside < otherside - minside -> -1
         maxside.pow(2) == minside.pow(2) + otherside.pow(2) -> 1
         maxside.pow(2) > minside.pow(2) + otherside.pow(2) -> 2
         maxside.pow(2) < minside.pow(2) + otherside.pow(2) -> 0
