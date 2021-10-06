@@ -85,7 +85,7 @@ fun fib(n: Int): Int {
     if (n == 2) return 1
     if (n == 1) return 1
     else for (i in 3..n) {
-        z = fib(n-1) + fib(n-2)
+        z = fib(n - 1) + fib(n - 2)
         return z
     }
     return -1
@@ -97,25 +97,24 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var z = 2
-    if ((n % z) == 0) {
-        return z
+    var m=n
+    for (z in 2 until n-1) {
+        if ((n % z == 0) && (z<m)) m=z
     }
-    else z += 1
-    return -1
+    return m
 }
+
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var z = n-1
-    if ((n % z) == 0) {
-        return z
+    var m=1
+    for (z in 2 until n-1) {
+        if ((n % z == 0) && (z>m)) m=z
     }
-    else z -= 1
-    return -1
+    return m
 }
 
 /**
@@ -143,11 +142,10 @@ fun collatzSteps(x: Int): Int = TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var k = n+1
+    var k = n + 1
     if (((k % n) == 0) && ((k % n) == 0)) {
         return k
-    }
-    else k += 1
+    } else k += 1
     return -1
 }
 
