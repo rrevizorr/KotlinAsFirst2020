@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import kotlin.math.sqrt
+import kotlin.math.pow
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -97,9 +98,9 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var m=n
-    for (z in 2 until n-1) {
-        if ((n % z == 0) && (z<m)) m=z
+    var m = n
+    for (z in 2 until n - 1) {
+        if ((n % z == 0) && (z < m)) m = z
     }
     return m
 }
@@ -110,9 +111,9 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var m=1
-    for (z in 2 until n-1) {
-        if ((n % z == 0) && (z>m)) m=z
+    var m = 1
+    for (z in 2 until n - 1) {
+        if ((n % z == 0) && (z > m)) m = z
     }
     return m
 }
@@ -142,10 +143,14 @@ fun collatzSteps(x: Int): Int = TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var k = n + 1
-    if (((k % n) == 0) && ((k % n) == 0)) {
-        return k
-    } else k += 1
+    var k = 1
+    var fin = 0
+    while ((k % m != 0) && (k % n != 0)) {
+        if ((k % m == 0) && (k % n == 0)) {
+            return k
+        } else
+            k++
+    }
     return -1
 }
 
@@ -156,7 +161,14 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    for (i in 2 until m + 1) {
+        if ((m % i == 0) && (n % i == 0)) {
+            return false
+        }
+    }
+    return true
+}
 
 /**
  * Средняя (3 балла)
@@ -186,7 +198,28 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var len = n.toString().length
+    var a = 0
+    var b = n
+    var c = 0
+    var counter = 0
+    while (b != 0) {
+        a = b % 10
+        b = b / 10
+        c = b % 10
+        if (c != a) {
+            counter++
+        }
+    }
+    if (len == counter) {
+        return true
+    }
+    if (n == 0) {
+        return true
+    }
+    return false
+}
 
 /**
  * Средняя (4 балла)
@@ -230,4 +263,22 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var fib_remeber = 0
+    var count = 0
+    var r = 0
+    for (i in 1 until n) {
+        if (count < n) {
+            count += fib(i).toString().length
+            fib_remeber = fib(i)
+        }
+        if (count > n) {
+            r = count - n
+            return (fib_remeber / (10.0.pow(r).toInt()))
+        }
+        if (count == n) {
+            return (fib_remeber % 10)
+        }
+    }
+    return -1
+}
