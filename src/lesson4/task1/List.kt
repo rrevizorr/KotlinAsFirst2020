@@ -127,7 +127,14 @@ fun abs(v: List<Double>): Double = TODO()
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double {
+    val summ=list.sum()
+    val s=list.size
+    if (s!=0){
+        return (summ / s)
+    }
+    else return 0.0
+}
 
 /**
  * Средняя (3 балла)
@@ -137,7 +144,18 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    val s=list.size
+    val summ=list.sum()
+    var z=0
+    if (s!=0){
+        z= (summ / s).toInt()
+        for (i in 0 until s-1){
+            list[i]=list[i]-z
+        }
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -146,7 +164,14 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    var summ=0
+    val z=a.size
+    for(i in 0 until z){
+        summ = summ +a[i]*b[i]
+    }
+    return summ
+}
 
 /**
  * Средняя (3 балла)
@@ -168,7 +193,14 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    var summ=list[0]
+    for (i in 1 until list.size-1){
+        list[i]=summ
+        summ+=list[i]
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)

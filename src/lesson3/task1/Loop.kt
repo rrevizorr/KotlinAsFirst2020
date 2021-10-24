@@ -267,18 +267,20 @@ fun fibSequenceDigit(n: Int): Int {
     var fib_remeber = 0
     var count = 0
     var r = 0
-    for (i in 1 until n) {
-        if (count < n) {
-            count += fib(i).toString().length
-            fib_remeber = fib(i)
-        }
-        if (count > n) {
-            r = count - n
-            return (fib_remeber / (10.0.pow(r).toInt()))
-        }
-        if (count == n) {
-            return (fib_remeber % 10)
+    while (count < n) {
+        for (i in 1 until n) {
+            if (count < n) {
+                count += fib(i).toString().length
+                fib_remeber = fib(i)
+            }
         }
     }
-    return -1
-}
+    if (count>n){
+        r = count - n
+        return (fib_remeber / (10.0.pow(r).toInt()))
+    }
+    if (count == n){
+        return (fib_remeber % 10)
+    }
+        return -1
+    }
