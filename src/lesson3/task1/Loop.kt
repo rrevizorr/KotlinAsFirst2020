@@ -73,7 +73,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var z = 0
+    var c = n
+    while (c != 0) {
+        z += 1
+        c = c / 10
+    }
+    return z
+}
 
 /**
  * Простая (2 балла)
@@ -252,7 +260,27 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var fibremember = 0
+    var count = 0
+    var r = 0
+    var a = 1
+    var b = 1
+    while (fibremember < n) {
+        if (fibremember > 1) {
+            count = a + b
+            r = b
+            b += a
+            a = r
+        } else count = a
+        fibremember += digitNumber(count)
+    }
+    while (fibremember !=n){
+        count /= 10
+        fibremember --
+    }
+    return count % 10
+}
 
 /**
  * Сложная (5 баллов)
@@ -264,23 +292,23 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var fib_remeber = 0
+    var fibremember = 0
     var count = 0
     var r = 0
-    while (count < n) {
-        for (i in 1 until n) {
-            if (count < n) {
-                count += fib(i).toString().length
-                fib_remeber = fib(i)
-            }
-        }
+    var a = 1
+    var b = 1
+    while (fibremember < n) {
+        if (fibremember > 1) {
+            count = a + b
+            r = b
+            b += a
+            a = r
+        } else count = a
+        fibremember += digitNumber(count)
     }
-    if (count>n){
-        r = count - n
-        return (fib_remeber / (10.0.pow(r).toInt()))
+    while (fibremember !=n){
+        count /= 10
+        fibremember --
     }
-    if (count == n){
-        return (fib_remeber % 10)
-    }
-        return -1
-    }
+    return count % 10
+}
