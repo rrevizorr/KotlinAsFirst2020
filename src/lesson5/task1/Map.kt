@@ -125,7 +125,15 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    TODO()
+    val list = mutableListOf<String>()
+    for ((key, value) in b) {
+        if (key in a && a[key] == value) {
+            list += key
+        }
+    }
+    for (i in list) {
+        a.remove(i)
+    }
 }
 
 /**
@@ -154,7 +162,26 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val res = mutableMapOf<String, String>()
+    for ((key, value) in mapA) {
+        if (key in mapB) {
+            val uniteValue = mutableListOf<String>()
+            if (mapA[key] == mapB[key]) uniteValue.add(value)
+            else {
+                uniteValue.add(mapA.getValue(key))
+                uniteValue.add(mapB.getValue(key))
+            }
+            res[key] = uniteValue.joinToString(separator = ", ")
+        } else res[key] = value
+    }
+    for ((key, value) in mapB) {
+        if (key !in res) {
+            res[key] = value
+        }
+    }
+    return res
+}
 
 /**
  * Средняя (4 балла)
@@ -166,7 +193,32 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    //val map = stockPrices.associateBy({ it.first }, { it.second })
+    //for ((key, value) in map) {
+       // if (key)
+    //}
+    val map = mutableMapOf<String, Double>()
+    for ((name, price) in stockPrices) {
+        if (name !in map) map[name] = price
+        else {
+            map[name] = (map[name]!! + price) / 2
+        }
+    }
+    return map
+}
+fun main() {
+    val stockPrices = listOf("MSFT" to 100.0, "NFLX" to 40.0, "MSFT" to 200.0, "NFLX" to 50.0)
+    val map1 = mutableMapOf<String, Double>()
+    for ((name, price) in stockPrices) {
+        if (name !in map1) map1[name] = price
+        else {
+            map1[name] = (map1[name]!! + price) / 2
+        }
+    }
+    val map = stockPrices.associateBy({ it.first }, { it.second })
+    println(map1)
+}
 
 /**
  * Средняя (4 балла)
