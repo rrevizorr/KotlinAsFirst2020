@@ -240,9 +240,17 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val list = convert(n, base)
+    val abc = "abcdefghijklmnopqrstuvwxyz"
+    var str = ""
+    for (i in 0 until list.size)
+        str += if (list[i] < 10) list[i] else
+            abc[list[i] - 10]
+    return str
+}
 
-/**
+    /**
  * Средняя (3 балла)
  *
  * Перевести число, представленное списком цифр digits от старшей к младшей,
