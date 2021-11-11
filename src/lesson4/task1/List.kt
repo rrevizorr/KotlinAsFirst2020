@@ -128,12 +128,11 @@ fun abs(v: List<Double>): Double = TODO()
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    val summ=list.sum()
-    val s=list.size
-    if (s!=0){
+    val summ = list.sum()
+    val s = list.size
+    if (s != 0) {
         return (summ / s)
-    }
-    else return 0.0
+    } else return 0.0
 }
 
 /**
@@ -145,13 +144,13 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    val s=list.size
-    val summ=list.sum()
-    var z=0
-    if (s!=0){
-        z= (summ / s).toInt()
-        for (i in 0 until s-1){
-            list[i]=list[i]-z
+    val s = list.size
+    val summ = list.sum()
+    var z = 0
+    if (s != 0) {
+        z = (summ / s).toInt()
+        for (i in 0 until s - 1) {
+            list[i] = list[i] - z
         }
     }
     return list
@@ -165,10 +164,10 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int {
-    var summ=0
-    val z=a.size
-    for(i in 0 until z){
-        summ = summ +a[i]*b[i]
+    var summ = 0
+    val z = a.size
+    for (i in 0 until z) {
+        summ = summ + a[i] * b[i]
     }
     return summ
 }
@@ -194,10 +193,10 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    var summ=list[0]
-    for (i in 1 until list.size-1){
-        list[i]=summ
-        summ+=list[i]
+    var summ = list[0]
+    for (i in 1 until list.size - 1) {
+        list[i] = summ
+        summ += list[i]
     }
     return list
 }
@@ -250,14 +249,20 @@ fun convertToString(n: Int, base: Int): String {
     return str
 }
 
-    /**
+/**
  * Средняя (3 балла)
  *
  * Перевести число, представленное списком цифр digits от старшей к младшей,
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int {
+    var n = 0
+    val list = digits.reversed()
+    for (elCount in 0 until digits.size)
+        n += list[elCount] * Math.pow(base.toDouble(), elCount.toDouble()).toInt()
+    return n
+}
 
 /**
  * Сложная (4 балла)
@@ -281,9 +286,23 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var str = ""
+    val romNumb = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val romAbc = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    var n1 = n
+    var i = 0
+    while (n1 > 0) {
+        while (n1 - romNumb[i] >= 0) {
+            str += romAbc[i]
+            n1 -= romNumb[i]
+        }
+        i += 1
+    }
+    return str
+}
 
-/**
+    /**
  * Очень сложная (7 баллов)
  *
  * Записать заданное натуральное число 1..999999 прописью по-русски.
