@@ -194,30 +194,22 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    //val map = stockPrices.associateBy({ it.first }, { it.second })
-    //for ((key, value) in map) {
-       // if (key)
-    //}
     val map = mutableMapOf<String, Double>()
     for ((name, price) in stockPrices) {
         if (name !in map) map[name] = price
         else {
-            map[name] = (map[name]!! + price) / 2
+            var count = 0
+            var sum = 0.0
+            for (i in stockPrices.indices){
+                if (stockPrices[i].first == name) {
+                    count++
+                    sum += stockPrices[i].second
+                }
+            }
+            map[name] = sum / count
         }
     }
     return map
-}
-fun main() {
-    val stockPrices = listOf("MSFT" to 100.0, "NFLX" to 40.0, "MSFT" to 200.0, "NFLX" to 50.0)
-    val map1 = mutableMapOf<String, Double>()
-    for ((name, price) in stockPrices) {
-        if (name !in map1) map1[name] = price
-        else {
-            map1[name] = (map1[name]!! + price) / 2
-        }
-    }
-    val map = stockPrices.associateBy({ it.first }, { it.second })
-    println(map1)
 }
 
 /**
