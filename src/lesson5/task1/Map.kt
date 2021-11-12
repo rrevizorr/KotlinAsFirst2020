@@ -200,7 +200,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
         else {
             var count = 0
             var sum = 0.0
-            for (i in stockPrices.indices){
+            for (i in stockPrices.indices) {
                 if (stockPrices[i].first == name) {
                     count++
                     sum += stockPrices[i].second
@@ -227,7 +227,22 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    var res: String? = ""
+    var min = 9999.0
+    val list = mutableListOf<String>()
+    for ((name, pair) in stuff) {
+        list += pair.first
+        if (pair.first == kind) {
+            if (pair.second < min) {
+                res = name
+                min = pair.second
+            }
+        }
+    }
+    if (kind !in list) return null
+    return res
+}
 
 /**
  * Средняя (3 балла)
