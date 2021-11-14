@@ -73,5 +73,5 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     val minSide2 = (a + b + c) - maxOf(a, b, c) - minSide
     val holeSide1 = minOf(r, s)
     val holeSide2 = (r + s) - holeSide1
-    return (minSide <= holeSide1 && minSide2 <= holeSide2)
+    return minSide <= holeSide1 && minSide2 <= holeSide2
 }
