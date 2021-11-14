@@ -42,6 +42,7 @@ class Tests {
         assertEquals("", dateStrToDigit("32 сентября 2011"))
         assertEquals("", dateStrToDigit("29 февраля 1993"))
         assertEquals("", dateStrToDigit("31 апреля 1"))
+        assertEquals("", dateStrToDigit("29 февраля 100"))
     }
 
     @Test
