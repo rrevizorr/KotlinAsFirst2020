@@ -82,13 +82,25 @@ fun dateStrToDigit(str: String): String {
         val year = list[2].toInt()
         val monthWord = list[1]
         val map = mapOf(
-            "января" to "01", "февраля" to "02", "марта" to "03", "апреля" to "04", "мая" to "05", "июня" to "06",
-            "июля" to "07", "августа" to "08", "сентября" to "09", "октября" to "10", "ноября" to "11", "декабря" to "12"
+            "января" to "01",
+            "февраля" to "02",
+            "марта" to "03",
+            "апреля" to "04",
+            "мая" to "05",
+            "июня" to "06",
+            "июля" to "07",
+            "августа" to "08",
+            "сентября" to "09",
+            "октября" to "10",
+            "ноября" to "11",
+            "декабря" to "12"
         )
+        val listOfMonths = listOf("апреля", "июня", "сентября", "ноября")
         when {
+            day > 30 && monthWord in listOfMonths -> return ""
             monthWord !in map -> return ""
             day > 31 -> return ""
-            year < 100 -> return ""
+            year < 0 -> return ""
             monthWord == "февраля" && day > 28 && year % 4 != 0 -> return ""
             monthWord == "февраля" && day > 29 && (year % 4 == 0 || year % 400 == 0) -> return ""
         }
@@ -130,10 +142,12 @@ fun dateDigitToStr(digital: String): String {
             "11" to "ноября",
             "12" to "декабря"
         )
+        val listOfMonths = listOf("04", "06", "09", "11")
         when {
+            day > 30 && month in listOfMonths -> return ""
             month !in map -> return ""
             day > 31 -> return ""
-            year < 100 -> return ""
+            year < 0 -> return ""
             month == "02" && day > 28 && year % 4 != 0 -> return ""
             month == "02" && day > 29 && (year % 4 == 0 || year % 400 == 0) -> return ""
         }
