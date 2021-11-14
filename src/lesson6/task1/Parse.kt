@@ -74,7 +74,30 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val list = str.split(" ")
+    if (list.size != 3) return ""
+    try {
+        val day = list[0].toInt()
+        val year = list[2].toInt()
+        val monthWord = list[1]
+        val map = mapOf(
+            "января" to "01", "февраля" to "02", "марта" to "03", "апреля" to "04", "мая" to "05", "июня" to "06",
+            "июля" to "07", "августа" to "08", "сентября" to "09", "октября" to "10", "ноября" to "11", "декабря" to "12"
+        )
+        when {
+            monthWord !in map -> return ""
+            day > 31 -> return ""
+            year < 0 -> return ""
+            monthWord == "февраля" && day > 28 && year % 4 != 0 -> return ""
+            monthWord == "февраля" && day > 29 && (year % 4 == 0 || year % 400 == 0) -> return ""
+        }
+        val month = map[monthWord]!!.toInt()
+        return String.format("%02d.%02d.%d", day, month, year)
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +109,41 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val list = digital.split(".")
+    if (list.size != 3) return ""
+    try {
+        val day = list[0].toInt()
+        val month = list[1]
+        val year = list[2].toInt()
+        val map = mapOf(
+            "01" to "января",
+            "02" to "февраля",
+            "03" to "марта",
+            "04" to "апреля",
+            "05" to "мая",
+            "06" to "июня",
+            "07" to "июля",
+            "08" to "августа",
+            "09" to "сентября",
+            "10" to "октября",
+            "11" to "ноября",
+            "12" to "декабря"
+        )
+        when {
+            month !in map -> return ""
+            day > 31 -> return ""
+            year < 0 -> return ""
+            month == "02" && day > 28 && year % 4 != 0 -> return ""
+            month == "02" && day > 29 && (year % 4 == 0 || year % 400 == 0) -> return ""
+        }
+        val monthWord = map[month]
+        return String.format("%d %s %d", day, monthWord, year)
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
+
 
 /**
  * Средняя (4 балла)
