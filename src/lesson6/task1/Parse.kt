@@ -101,8 +101,9 @@ fun dateStrToDigit(str: String): String {
             monthWord !in map -> return ""
             day > 31 -> return ""
             year < 0 -> return ""
-            monthWord == "февраля" && day > 28 && year % 4 != 0 -> return ""
-            monthWord == "февраля" && day > 29 && (year % 4 == 0 || year % 400 == 0) -> return ""
+            monthWord == "февраля" && day > 28 && year % 4 != 0 && (year % 400 != 0 || year % 100 == 0) -> return ""
+            monthWord == "02" && day > 28 && year % 100 == 0 && year % 400 != 0 -> return ""
+            monthWord == "февраля" && day > 29 -> return ""
         }
         val month = map[monthWord]!!.toInt()
         return String.format("%02d.%02d.%d", day, month, year)
@@ -149,7 +150,8 @@ fun dateDigitToStr(digital: String): String {
             day > 31 -> return ""
             year < 0 -> return ""
             month == "02" && day > 28 && year % 4 != 0 -> return ""
-            month == "02" && day > 29 && (year % 4 == 0 || year % 400 == 0) -> return ""
+            month == "02" && day > 28 && year % 100 == 0 && year % 400 != 0 -> return ""
+            month == "02" && day > 29 -> return ""
         }
         val monthWord = map[month]
         return String.format("%d %s %d", day, monthWord, year)
