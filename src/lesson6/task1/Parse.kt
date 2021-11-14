@@ -88,7 +88,7 @@ fun dateStrToDigit(str: String): String {
         when {
             monthWord !in map -> return ""
             day > 31 -> return ""
-            year < 0 -> return ""
+            year < 100 -> return ""
             monthWord == "февраля" && day > 28 && year % 4 != 0 -> return ""
             monthWord == "февраля" && day > 29 && (year % 4 == 0 || year % 400 == 0) -> return ""
         }
@@ -133,7 +133,7 @@ fun dateDigitToStr(digital: String): String {
         when {
             month !in map -> return ""
             day > 31 -> return ""
-            year < 0 -> return ""
+            year < 100 -> return ""
             month == "02" && day > 28 && year % 4 != 0 -> return ""
             month == "02" && day > 29 && (year % 4 == 0 || year % 400 == 0) -> return ""
         }
