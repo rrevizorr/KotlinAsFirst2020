@@ -74,15 +74,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int {
-    var z = 0
-    var c = n
-    while (c != 0) {
-        z += 1
-        c = c / 10
-    }
-    return z
-}
+fun digitNumber(n: Int): Int = TODO()
 
 /**
  * Простая (2 балла)
@@ -108,7 +100,7 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var m = n
-    for (z in 2 until n - 1) {
+    for (z in 2 until sqr(n)) {
         if ((n % z == 0) && (z < m)) m = z
     }
     return m
@@ -151,17 +143,7 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var k = 1
-    var fin = 0
-    while ((k % m != 0) && (k % n != 0)) {
-        if ((k % m == 0) && (k % n == 0)) {
-            return k
-        } else
-            k++
-    }
-    return -1
-}
+fun lcm(m: Int, n: Int): Int = TODO()
 
 /**
  * Средняя (3 балла)
