@@ -197,28 +197,7 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean {
-    var len = n.toString().length
-    var a = 0
-    var b = n
-    var c = 0
-    var counter = 0
-    while (b != 0) {
-        a = b % 10
-        b = b / 10
-        c = b % 10
-        if (c != a) {
-            counter++
-        }
-    }
-    if (len == counter) {
-        return true
-    }
-    if (n == 0) {
-        return true
-    }
-    return false
-}
+fun hasDifferentDigits(n: Int): Boolean = digitCountInNumber(n, n % 10) != "$n".length
 
 /**
  * Средняя (4 балла)
