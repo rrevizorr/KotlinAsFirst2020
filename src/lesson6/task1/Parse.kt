@@ -128,14 +128,14 @@ fun bestLongJump(jumps: String): Int = TODO()
  * вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    val parts = jumps.split(" ")
-    val result = mutableListOf<String>()
-    for (i in 1 until parts.size step 2){
-        if ("+" in parts[i]) result.add(parts[i - 1])
-        if (parts[i - 1] < 0.toString()) return -1
-        if (Regex("^-%+0-9").containsMatchIn(parts[i])) return -1
+    val pars = jumps.split(" ")
+    val resut = mutableListOf<String>()
+    for (i in 1 until pars.size step 2){
+        if ("+" in pars[i]) resut.add(pars[i - 1])
+        if (pars[i - 1] < 0.toString()) return -1
+        if (Regex("^-%+0-9").containsMatchIn(pars[i])) return -1
     }
-    return result.map { it.toIntOrNull() ?: return -1}.maxOrNull() ?: -1
+    return resut.map { it.toIntOrNull() ?: return -1}.maxOrNull() ?: -1
 }
 
 /**
@@ -159,12 +159,12 @@ fun plusMinus(expression: String): Int = TODO()
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    val parts = str.toLowerCase().split(" ")
-    var result = 0
-    if (parts.size <= 1) return -1
-    for (i in 1 until parts.size) {
-        if (parts[i] == parts[i-1]) return result
-        result += parts[i-1].length + 1
+    val pars = str.toLowerCase().split(" ")
+    var resut = 0
+    if (pars.size <= 1) return -1
+    for (i in 1 until pars.size) {
+        if (pars[i] == pars[i-1]) return resut
+        resut += pars[i-1].length + 1
     }
     return -1
 }
