@@ -47,20 +47,20 @@ fun timeSecondsToStr(seconds: Int): String {
 /**
  * Пример: консольный ввод
  */
-fun main() {
-    println("Введите время в формате ЧЧ:ММ:СС")
-    val line = readLine()
-    if (line != null) {
-        val seconds = timeStrToSeconds(line)
-        if (seconds == -1) {
-            println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        } else {
-            println("Прошло секунд с начала суток: $seconds")
-        }
-    } else {
-        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
-    }
-}
+//fun main() {
+//println("Введите время в формате ЧЧ:ММ:СС")
+// val line = readLine()
+//  if (line != null) {
+//      val seconds = timeStrToSeconds(line)
+//       if (seconds == -1) {
+//            println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
+//        } else {
+//            println("Прошло секунд с начала суток: $seconds")
+//        }
+//    } else {
+//        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
+//    }
+//}
 
 
 /**
@@ -77,40 +77,36 @@ fun main() {
 fun dateStrToDigit(str: String): String {
     val list = str.split(" ")
     if (list.size != 3) return ""
-    try {
-        val day = list[0].toInt()
-        val year = list[2].toInt()
-        val monthWord = list[1]
-        val map = mapOf(
-            "января" to "01",
-            "февраля" to "02",
-            "марта" to "03",
-            "апреля" to "04",
-            "мая" to "05",
-            "июня" to "06",
-            "июля" to "07",
-            "августа" to "08",
-            "сентября" to "09",
-            "октября" to "10",
-            "ноября" to "11",
-            "декабря" to "12"
-        )
-        val listOfMonths = listOf("апреля", "июня", "сентября", "ноября")
-        when {
-            day > 30 && monthWord in listOfMonths -> return ""
-            monthWord !in map -> return ""
-            day > 31 -> return ""
-            year < 0 -> return ""
-            monthWord == "февраля" && day > 28 && year % 4 != 0 && (year % 400 != 0 || year % 100 == 0) -> return ""
-            monthWord == "февраля" && day > 28 && year % 100 == 0 && year % 400 != 0 && year != 100 -> return ""
-            monthWord == "февраля" && day > 28 && year == 100 -> return ""
-            monthWord == "февраля" && day > 29 -> return ""
-        }
-        val month = map[monthWord]!!.toInt()
-        return String.format("%02d.%02d.%d", day, month, year)
-    } catch (e: NumberFormatException) {
-        return ""
+    val day = list[0].toInt()
+    val year = list[2].toInt()
+    val monthWord = list[1]
+    val map = mapOf(
+        "января" to "01",
+        "февраля" to "02",
+        "марта" to "03",
+        "апреля" to "04",
+        "мая" to "05",
+        "июня" to "06",
+        "июля" to "07",
+        "августа" to "08",
+        "сентября" to "09",
+        "октября" to "10",
+        "ноября" to "11",
+        "декабря" to "12"
+    )
+    val listOfMonths = listOf("апреля", "июня", "сентября", "ноября")
+    when {
+        day > 30 && monthWord in listOfMonths -> return ""
+        monthWord !in map -> return ""
+        day > 31 -> return ""
+        year < 0 -> return ""
+        monthWord == "февраля" && day > 28 && year % 4 != 0 && (year % 400 != 0 || year % 100 == 0) -> return ""
+        monthWord == "февраля" && day > 28 && year % 100 == 0 && year % 400 != 0 && year != 100 -> return ""
+        monthWord == "февраля" && day > 28 && year == 100 -> return ""
+        monthWord == "февраля" && day > 29 -> return ""
     }
+    val month = map[monthWord]!!.toInt()
+    return String.format("%02d.%02d.%d", day, month, year)
 }
 
 /**
@@ -202,7 +198,15 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    var max = 0
+    val result = Regex("""(\d+)\s[%-]*(\+)[%-]*""").findAll(jumps)
+    if (result.map { it.groupValues[1] }.joinToString() == "") return -1
+    for (i in result) {
+        if (i.value.split(" ")[0].toInt() > max) max = i.value.split(" ")[0].toInt()
+    }
+    return max
+}
 
 /**
  * Сложная (6 баллов)
@@ -224,7 +228,17 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val words = str.split(" ")
+    if (words.size == 1) return -1
+    var result = -1
+    var resultString = ""
+    for (i in 0 until words.size - 1) {
+        if (words[i].equals(words[i + 1], ignoreCase = true)) result = resultString.length
+        resultString = resultString + words[i] + " "
+    }
+    return result
+}
 
 /**
  * Сложная (6 баллов)
@@ -237,7 +251,24 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    return try {
+        val goods = description.split("; ")
+        var max = -1.0
+        var nameMax = ""
+        for (item in goods) {
+            val name = item.split(" ")[0]
+            val price = item.split(" ")[1].toDouble()
+            if (price > max) {
+                nameMax = name
+                max = price
+            }
+        }
+        nameMax
+    } catch (e: Exception) {
+        ""
+    }
+}
 
 /**
  * Сложная (6 баллов)
@@ -289,3 +320,5 @@ fun fromRoman(roman: String): Int = TODO()
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
+

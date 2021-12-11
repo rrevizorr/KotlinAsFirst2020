@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import ru.spbstu.wheels.getEntry
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -193,24 +195,9 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    val map = mutableMapOf<String, Double>()
-    for ((name, price) in stockPrices) {
-        if (name !in map) map[name] = price
-        else {
-            var count = 0
-            var sum = 0.0
-            for (i in stockPrices.indices) {
-                if (stockPrices[i].first == name) {
-                    count++
-                    sum += stockPrices[i].second
-                }
-            }
-            map[name] = sum / count
-        }
-    }
-    return map
-}
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> =
+    stockPrices.groupBy { it.first }.mapValues { it.value.map { pair -> pair.second }.average() }
+
 
 /**
  * Средняя (4 балла)
@@ -233,11 +220,9 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
     val list = mutableListOf<String>()
     for ((name, pair) in stuff) {
         list += pair.first
-        if (pair.first == kind) {
-            if (pair.second <= min) {
-                res = name
-                min = pair.second
-            }
+        if (pair.first == kind && pair.second <= min) {
+            res = name
+            min = pair.second
         }
     }
     if (kind !in list) return null
@@ -338,18 +323,13 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     var res = Pair(-1, -1)
-    for (i in list.indices) {
-        for (n in list.indices) {
-            if (list[i] + list[n] == number && i != n) {
-                if (i < n) {
-                    res = Pair(i, n)
-                    break
-                } else {
-                    res = Pair(n, i)
-                    break
-                }
-            }
-        }
+    val map = list.associateBy({ list.indexOf(it) }, { it })
+    for ((key, value) in map) {
+        if (map.containsValue(number - value) && map.entries.find { it.value == number - value }!!.key != key)
+            res = Pair(
+                minOf(key, map.entries.find { it.value == number - value }!!.key),
+                maxOf(key, map.entries.find { it.value == number - value }!!.key)
+            )
     }
     return res
 }

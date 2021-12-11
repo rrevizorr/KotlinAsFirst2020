@@ -92,13 +92,13 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var previous = 1
-    var prePrevious = 1
     var number = 1
     when (n) {
         1 -> 1
         2 -> 1
         else -> {
+            var previous = 1
+            var prePrevious = 1
             for (i in 3..n) {
                 number = prePrevious + previous
                 prePrevious = previous
@@ -168,14 +168,13 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
-    var reversedNumber = ""
     var number = n
-    if (number == 0) return 0
-    while (number > 0) {
-        reversedNumber += (number % 10).toString()
+    var result = 0
+    while (number != 0) {
+        result = result * 10 + number % 10
         number /= 10
     }
-    return reversedNumber.toInt()
+    return result
 }
 
 /**
@@ -234,14 +233,14 @@ fun squareSequenceDigit(n: Int): Int {
     var number: Int
     var maxSqr = 0
     var lenght = 0
-    while (lenght < n){
+    while (lenght < n) {
         for (i in 1..n) {
             number = sqr(i)
             while (number > 0) {
                 lenght++
                 number /= 10
             }
-            if (lenght >= n && maxSqr < sqr(i)) {
+            if (lenght >= n) {
                 maxSqr = sqr(i)
                 break
             }
@@ -275,7 +274,7 @@ fun fibSequenceDigit(n: Int): Int {
                 lenght++
                 number /= 10
             }
-            if (lenght >= n && maxFib < fib(i)) {
+            if (lenght >= n) {
                 maxFib = fib(i)
                 break
             }
