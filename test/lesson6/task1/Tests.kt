@@ -43,6 +43,10 @@ class Tests {
         assertEquals("", dateStrToDigit("29 февраля 1993"))
         assertEquals("", dateStrToDigit("31 апреля 1"))
         assertEquals("", dateStrToDigit("29 февраля 100"))
+        assertEquals(
+            "",
+            dateStrToDigit("aaaaaaaaQa#XO!ly~s@K@jMz$,i-j,mkZ?bzN7r0E-Gdm-2PA,jJj1)<{~4hc9#01RO2X4 l)")
+        )
     }
 
     @Test
@@ -111,6 +115,7 @@ class Tests {
         assertEquals(9, firstDuplicateIndex("Он пошёл в в школу"))
         assertEquals(40, firstDuplicateIndex("Яблоко упало на ветку с ветки оно упало на на землю"))
         assertEquals(9, firstDuplicateIndex("Мы пошли прямо Прямо располагался магазин"))
+        assertEquals(0, firstDuplicateIndex("a a a a"))
     }
 
     @Test

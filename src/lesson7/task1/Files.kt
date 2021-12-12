@@ -88,18 +88,20 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
-//{
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    TODO()
 //    val map = substrings.associateBy({ it }, { 0 }).toMutableMap()
 //    for ((key, _) in map) {
-//        val reg = Regex(key, RegexOption.IGNORE_CASE) //key.toRegex(RegexOption.IGNORE_CASE, RegexOption.LITERAL)
+//        val reg = Regex(
+//            key,
+//            setOf(RegexOption.IGNORE_CASE, RegexOption.LITERAL)
+//        )
 //        for (line in File(inputName).readLines()) {
 //            map[key] = map[key]!! + reg.findAll(line).count()
 //        }
 //    }
 //    return map
-//}
-
+}
 
 /**
  * Средняя (12 баллов)
@@ -117,30 +119,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
 fun sibilants(inputName: String, outputName: String) {
     TODO()
 }
-//{
-//    val writer = File(outputName).bufferedWriter()
-//    val listCon = listOf('ж', 'ч', 'ш', 'щ', 'Ж', 'Ч', 'Ш', 'Щ', 'Ж')
-//    val listVow = listOf('ы', 'я', 'ю', 'Ы', 'Я', 'Ю')
-//    val map = mapOf(
-//        'ы' to 'и',
-//        'я' to 'а',
-//        'ю' to 'у',
-//        'Ю' to 'У',
-//        'Я' to 'А',
-//        'Ы' to 'И')
-//    for (line in File(inputName).readLines()) {
-//        var lineReplaced = line
-//        for (i in line.indices - 1) {
-//            if (line[i] in listCon && line[i + 1] in listVow) {
-//                val letter = map[line[i + 1]]!!
-//                lineReplaced = line.replace(line[i + 1], letter)
-//            }
-//        }
-//        writer.write(lineReplaced)
-//        writer.newLine()
-//    }
-//    writer.close()
-//}
+
 
 /**
  * Средняя (15 баллов)
@@ -330,6 +309,11 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     TODO()
+//    val writer = File(outputName).bufferedWriter()
+//    writer.write("<html>")
+//    writer.newLine()
+//    writer.write("<body>")
+//    writer.newLine()
 }
 
 /**
