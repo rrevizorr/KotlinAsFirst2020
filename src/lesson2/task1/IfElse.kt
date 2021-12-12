@@ -131,3 +131,17 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+
+fun myFun(addresses: List<String>, street: String, house:Int): Set<String> {
+    val address = "$street, $house"
+    val name = mutableSetOf<String>()
+    val reg = "[А-яЁё]+[ ][А-яЁё]+:[ ]+[а-яё]+([ ][А-яЁё]+)+,[ ]+\\d+,[ ]+кв\\.[ ]\\d+".toRegex()
+    addresses.forEach {
+        if (!reg.matches(it)) throw IllegalArgumentException()
+        val splitlist = it.split(": ")
+        val tempname = splitlist.first()
+        val tempAddress = splitlist.last().split(", кв").first()
+        if (tempAddress == address) name.add(tempname)
+    }
+    return name
+}

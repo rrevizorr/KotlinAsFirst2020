@@ -128,13 +128,4 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
 fun numberRevert(number: Int): Int =
     (number % 1000) / 100 + ( number % 100) / 10 * 10 + ((number % 10) * 100)
 
-fun myFun(input: List<Int>): Array<Int> {
-    val mid: Array<Int> = arrayOf()
-    for (i in 0 until (input.size)-1) {
-        if ((maxOf(input[i],input[i+1]) - minOf(input[i],input[i+1])) > 1 ){
-            mid.set(input[i],input[i+1])
-        }
-    }
-    return mid
-}
 

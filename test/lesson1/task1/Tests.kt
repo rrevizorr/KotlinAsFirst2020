@@ -105,20 +105,4 @@ class Tests {
         assertEquals(874, numberRevert(478))
         assertEquals(201, numberRevert(102))
     }
-
-    @Test
-    fun myFun() {
-        assertEquals(
-            (listOf(6, 8)),
-            myFun(listOf(2, 3, 4, 5, 6, 8))
-        )
-        assertEquals(
-            (listOf(2, 5, 6, 8)),
-            myFun(listOf(2, 5, 4, 5, 6, 8))
-        )
-        assertEquals(
-            (listOf(5, 8)),
-            myFun(listOf(2, 3, 4, 5, 8, 7))
-        )
-    }
 }
