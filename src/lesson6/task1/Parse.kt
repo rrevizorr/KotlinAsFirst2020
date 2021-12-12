@@ -234,9 +234,11 @@ fun firstDuplicateIndex(str: String): Int {
     if (words.size == 1) return -1
     var result = -1
     var resultString = ""
-    if (words[0] == words[1]) return 0
     for (i in 0 until words.size - 1) {
-        if (words[i].equals(words[i + 1], ignoreCase = true)) result = resultString.length
+        if (words[i].equals(words[i + 1], ignoreCase = true)) {
+            result = resultString.length
+            break
+        }
         resultString = resultString + words[i] + " "
     }
     return result
