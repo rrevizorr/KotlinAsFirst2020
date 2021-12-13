@@ -6,6 +6,7 @@ import ru.spbstu.wheels.getEntry
 import ru.spbstu.wheels.out
 import java.io.File
 import java.io.InputStream
+import java.lang.IndexOutOfBoundsException
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -89,7 +90,22 @@ fun deleteMarked(inputName: String, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
-    TODO()
+    val text = File(inputName).readText().lowercase()
+    val map = substrings.associateBy({ it }, { 0 }).toMutableMap()
+    val strings = text.split("\n")
+    for (substring in substrings) {
+        val substringLowerCase = substring.lowercase()
+        for (string in strings) {
+            map[substring] = map.getValue(substring) + string.windowed(substringLowerCase.length) {
+                if (it == substringLowerCase)
+                    1
+                else
+                    0
+            }.sum()
+        }
+    }
+    return map
+
 //    val map = substrings.associateBy({ it }, { 0 }).toMutableMap()
 //    for ((key, _) in map) {
 //        val reg = Regex(
@@ -101,6 +117,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
 //        }
 //    }
 //    return map
+
 }
 
 /**
@@ -310,10 +327,54 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     TODO()
 //    val writer = File(outputName).bufferedWriter()
+//    var text = File(inputName).readText()
+//    text = "\\*\\*(.*?)\\*\\*".toRegex().replace(text)
+//    { v -> "<b>" + v.value.replace("**", "") + "</b>" }
+//    text = "\\*(.*?)\\*".toRegex().replace(text)
+//    { v -> "<i>" + v.value.replace("*", "") + "</i>" }
+//    text = "\\~\\~(.*?)\\~\\~".toRegex().replace(text)
+//    { v -> "<s>" + v.value.replace("~~", "") + "</s>" }
+//    val strings = text.split("\n")
 //    writer.write("<html>")
 //    writer.newLine()
 //    writer.write("<body>")
 //    writer.newLine()
+//    for (i in strings.indices) {
+//        try {
+//            if (strings[i].isEmpty() && strings[i + 1].isNotEmpty()) {
+//                writer.newLine()
+//                writer.write("<p>")
+//                writer.newLine()
+//                writer.write(strings[i + 1])
+//            }
+//            if (
+//                strings[i].isNotEmpty()
+//                && strings[i - 1].isNotEmpty()
+//                && strings[i + 1].isNotEmpty()
+//            ) {
+//                writer.write(strings[i])
+//                writer.newLine()
+//            }
+//            if (
+//                strings[i].isNotEmpty()
+//                && strings[i - 1].isNotEmpty()
+//                && strings[i + 1].isEmpty()
+//            ) {
+//                writer.write(strings[i])
+//                writer.newLine()
+//                writer.write("</p>")
+//            }
+//            if (strings[i].isEmpty() && strings[i + 1].isEmpty()) continue
+//        } catch (e: IndexOutOfBoundsException) {
+//            continue
+//        }
+//    }
+//
+//
+//
+//    writer.write(text)
+//    writer.close()
+
 }
 
 /**
