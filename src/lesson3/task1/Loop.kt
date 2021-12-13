@@ -97,14 +97,7 @@ fun fib(n: Int): Int = if (n < 3) 1 else fib(n - 1) + fib(n - 2)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int {
-    var m = n
-    for (z in 2 until sqr(n)) {
-        if ((n % z == 0) && (z < m)) m = z
-    }
-    return m
-}
-
+fun minDivisor(n: Int): Int = TODO()
 /**
  * Простая (2 балла)
  *
@@ -151,14 +144,7 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    for (i in 2 until m + 1) {
-        if ((m % i == 0) && (n % i == 0)) {
-            return false
-        }
-    }
-    return true
-}
+fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 
 /**
  * Средняя (3 балла)

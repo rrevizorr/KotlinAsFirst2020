@@ -283,16 +283,16 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  */
 fun roman(n: Int): String {
     var str = ""
-    val romNumb = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    val romAbc = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
-    var n1 = n
-    var i = 0
-    while (n1 > 0) {
-        while (n1 - romNumb[i] >= 0) {
-            str += romAbc[i]
-            n1 -= romNumb[i]
+    val rNum = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val rAb = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    var k = 0
+    var n_ = n
+    while (n_ > 0) {
+        while (n_ - rNum[k] >= 0) {
+            n_ -= rNum[k]
+            str += rAb[k]
         }
-        i += 1
+        k += 1
     }
     return str
 }
