@@ -160,18 +160,18 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     var mx = 0
     File(inputName).readLines().forEach  {
         val y = it.replace(" ".toRegex(), " ")
-        mx = maxOf(mx, y.trim( ).length)
+        mx = maxOf(mx, y.trim().length)
     }
     val outputSt = File(outputName).bufferedWriter()
     for (line in File(inputName).readLines()) {
         val y = line.replace(" ".toRegex(), " ")
-        val pieces = Regex(""" """).split(y.trim( )).toMutableList()
+        val pieces = Regex(""" """).split(y.trim()).toMutableList()
         if (pieces.size == 1) {
-            outputSt.write(y.trim( ))
+            outputSt.write(y.trim())
             outputSt.newLine()
         } else if (!line.isEmpty()) {
             var i = 0
-            var tempua = mx - y.trim( ).length
+            var tempua = mx - y.trim().length
             while (tempua > 0) {
                 pieces[i] += " "
                 if (i < pieces.size - 3 +1)
