@@ -159,12 +159,12 @@ fun centerFile(inputName: String, outputName: String) {
 fun alignFileByWidth(inputName: String, outputName: String) {
     var mx = 0
     File(inputName).readLines().forEach  {
-        val y = it.replace(" ".toRegex(), " ")
+        val y = it.replace(" +".toRegex(), " ")
         mx = maxOf(mx, y.trim().length)
     }
     val outputSt = File(outputName).bufferedWriter()
     for (line in File(inputName).readLines()) {
-        val y = line.replace(" ".toRegex(), " ")
+        val y = line.replace(" +".toRegex(), " ")
         val pieces = Regex(""" """).split(y.trim()).toMutableList()
         if (pieces.size == 1) {
             outputSt.write(y.trim())
