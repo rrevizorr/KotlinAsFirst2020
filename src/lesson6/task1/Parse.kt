@@ -75,9 +75,8 @@ fun timeSecondsToStr(seconds: Int): String {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    if (str.length > 30) return ""
+    if (!str.matches("""(\d)+\s[а-я]+\s(\d)+""".toRegex())) return ""
     val list = str.split(" ")
-    if (list.size != 3) return ""
     val day = list[0].toInt()
     val year = list[2].toInt()
     val monthWord = list[1]
@@ -121,42 +120,38 @@ fun dateStrToDigit(str: String): String {
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String {
+    if (!digital.matches("""(\d)+\.(\d)+\.(\d)+""".toRegex())) return ""
     val list = digital.split(".")
-    if (list.size != 3) return ""
-    try {
-        val day = list[0].toInt()
-        val month = list[1]
-        val year = list[2].toInt()
-        val map = mapOf(
-            "01" to "января",
-            "02" to "февраля",
-            "03" to "марта",
-            "04" to "апреля",
-            "05" to "мая",
-            "06" to "июня",
-            "07" to "июля",
-            "08" to "августа",
-            "09" to "сентября",
-            "10" to "октября",
-            "11" to "ноября",
-            "12" to "декабря"
-        )
-        val listOfMonths = listOf("04", "06", "09", "11")
-        when {
-            day > 30 && month in listOfMonths -> return ""
-            month !in map -> return ""
-            day > 31 -> return ""
-            year < 0 -> return ""
-            month == "02" && day > 28 && year % 4 != 0 -> return ""
-            month == "02" && day > 28 && year % 100 == 0 && year % 400 != 0 -> return ""
-            month == "02" && day > 28 && year == 100 -> return ""
-            month == "02" && day > 29 -> return ""
-        }
-        val monthWord = map[month]
-        return String.format("%d %s %d", day, monthWord, year)
-    } catch (e: NumberFormatException) {
-        return ""
+    val day = list[0].toInt()
+    val month = list[1]
+    val year = list[2].toInt()
+    val map = mapOf(
+        "01" to "января",
+        "02" to "февраля",
+        "03" to "марта",
+        "04" to "апреля",
+        "05" to "мая",
+        "06" to "июня",
+        "07" to "июля",
+        "08" to "августа",
+        "09" to "сентября",
+        "10" to "октября",
+        "11" to "ноября",
+        "12" to "декабря"
+    )
+    val listOfMonths = listOf("04", "06", "09", "11")
+    when {
+        day > 30 && month in listOfMonths -> return ""
+        month !in map -> return ""
+        day > 31 -> return ""
+        year < 0 -> return ""
+        month == "02" && day > 28 && year % 4 != 0 -> return ""
+        month == "02" && day > 28 && year % 100 == 0 && year % 400 != 0 -> return ""
+        month == "02" && day > 28 && year == 100 -> return ""
+        month == "02" && day > 29 -> return ""
     }
+    val monthWord = map[month]
+    return String.format("%d %s %d", day, monthWord, year)
 }
 
 
@@ -256,22 +251,19 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше нуля либо равны нулю.
  */
 fun mostExpensive(description: String): String {
-    return try {
-        val goods = description.split("; ")
-        var max = -1.0
-        var nameMax = ""
-        for (item in goods) {
-            val name = item.split(" ")[0]
-            val price = item.split(" ")[1].toDouble()
-            if (price > max) {
-                nameMax = name
-                max = price
-            }
+    if (!description.matches("""([а-яА-Я]+\s(\d)+\.?(\d?\d?);?\s?)+""".toRegex())) return ""
+    val goods = description.split("; ")
+    var max = -1.0
+    var nameMax = ""
+    for (item in goods) {
+        val name = item.split(" ")[0]
+        val price = item.split(" ")[1].toDouble()
+        if (price > max) {
+            nameMax = name
+            max = price
         }
-        nameMax
-    } catch (e: Exception) {
-        ""
     }
+    return nameMax
 }
 
 /**

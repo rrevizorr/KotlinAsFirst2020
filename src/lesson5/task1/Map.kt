@@ -98,7 +98,9 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> =
+    grades.toList().groupBy({ it.second }, { it.first })
+
 
 /**
  * Простая (2 балла)
@@ -110,7 +112,16 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
+    var check = true
+    for ((key, value) in a) {
+        if ((b[key] != value)) {
+            check = false
+            break
+        }
+    }
+    return check
+}
 
 /**
  * Простая (2 балла)
@@ -215,7 +226,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var res: String? = ""
+    var res: String? = null
     var min = Double.MAX_VALUE
     val list = mutableListOf<String>()
     for ((name, pair) in stuff) {
@@ -225,7 +236,6 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
             min = pair.second
         }
     }
-    if (kind !in list) return null
     return res
 }
 
@@ -324,7 +334,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     var res = Pair(-1, -1)
     val map = list.associateBy({ list.indexOf(it) }, { it })
-    if (number == 0 && list.count{ it == 0} >= 2) {
+    if (number == 0 && list.count { it == 0 } >= 2) {
         val f = list.indexOfFirst { it == 0 }
         val l = list.indexOfLast { it == 0 }
         return Pair(f, l)

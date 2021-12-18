@@ -233,17 +233,13 @@ fun squareSequenceDigit(n: Int): Int {
     var number: Int
     var maxSqr = 0
     var lenght = 0
-    while (lenght < n) {
-        for (i in 1..n) {
-            number = sqr(i)
-            while (number > 0) {
-                lenght++
-                number /= 10
-            }
-            if (lenght >= n) {
-                maxSqr = sqr(i)
-                break
-            }
+    for (i in 1..n) {
+        number = sqr(i)
+        lenght += digitNumber(number)
+        number /= 10
+        if (lenght >= n) {
+            maxSqr = sqr(i)
+            break
         }
     }
     while (lenght != n) {
@@ -267,17 +263,13 @@ fun fibSequenceDigit(n: Int): Int {
     var number: Int
     var maxFib = 0
     var lenght = 0
-    while (lenght < n){
-        for (i in 1..n) {
-            number = fib(i)
-            while (number > 0) {
-                lenght++
-                number /= 10
-            }
-            if (lenght >= n) {
-                maxFib = fib(i)
-                break
-            }
+    for (i in 1..n) {
+        number = fib(i)
+        lenght += digitNumber(number)
+        number /= 10
+        if (lenght >= n) {
+            maxFib = fib(i)
+            break
         }
     }
     while (lenght != n) {
