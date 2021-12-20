@@ -343,11 +343,11 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     var text = File(inputName).readText()
-    text = "\\*\\*(.*?)\\*\\*".toRegex().replace(text)
+    text = "\\*\\*([\\s\\S]*?)\\*\\*".toRegex().replace(text)
     { v -> "<b>" + v.value.replace("**", "") + "</b>" }
-    text = "\\*(.*?)\\*".toRegex().replace(text)
+    text = "\\*([\\s\\S]*?)\\*".toRegex().replace(text)
     { v -> "<i>" + v.value.replace("*", "") + "</i>" }
-    text = "~~(.*?)~~".toRegex().replace(text)
+    text = "~~([\\s\\S]*?)~~".toRegex().replace(text)
     { v -> "<s>" + v.value.replace("~~", "") + "</s>" }
     val strings = text.split("\n")
     writer.write("<html>")
