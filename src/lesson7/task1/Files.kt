@@ -355,16 +355,16 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     writer.write("<body>")
     writer.newLine()
     writer.write("<p>")
-    var flag = false
+    var check = false
     for (i in strings.indices) {
         val s = strings[i]
-        if (s.trim().isEmpty() && flag && i + 1 < strings.lastIndex) {
+        if (s.trim().isEmpty() && check && i + 1 < strings.lastIndex) {
             writer.write("$s</p><p>")
-            flag = false
+            check = false
         }
         if (s.trim().isNotEmpty()) {
             writer.write(s)
-            flag = true
+            check = true
         }
     }
     writer.write("</p>")
