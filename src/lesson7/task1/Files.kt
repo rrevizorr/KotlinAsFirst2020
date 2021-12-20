@@ -211,7 +211,22 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+    TODO()
+//    val map = mutableMapOf<String, Int>()
+//    var text = File(inputName).readText().lowercase()
+//    val re = Regex("""\n""")
+//    text = re.replace(text, " ")
+//    val letterReg = """[а-яА-Яa-zA-ZёЁ]""".toRegex()
+//    val nonLetterReg = """[^а-яА-Яa-zA-ZёЁ]""".toRegex()
+//    val words = text.split(" ").filter { letterReg.containsMatchIn(it) }
+//    for (word in words) {
+//        val wordCleared = nonLetterReg.replace(word, "")
+//        map[wordCleared] = map.getOrDefault(wordCleared, 0) + 1
+//    }
+//    val list = map.toList().sortedByDescending { (_, v) -> v }
+//    return list.filter { it.second >= list[19].second }.toMap()
+}
 
 /**
  * Средняя (14 баллов)
@@ -326,57 +341,36 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
-//    val writer = File(outputName).bufferedWriter()
-//    var text = File(inputName).readText()
-//    text = "\\*\\*(.*?)\\*\\*".toRegex().replace(text)
-//    { v -> "<b>" + v.value.replace("**", "") + "</b>" }
-//    text = "\\*(.*?)\\*".toRegex().replace(text)
-//    { v -> "<i>" + v.value.replace("*", "") + "</i>" }
-//    text = "\\~\\~(.*?)\\~\\~".toRegex().replace(text)
-//    { v -> "<s>" + v.value.replace("~~", "") + "</s>" }
-//    val strings = text.split("\n")
-//    writer.write("<html>")
-//    writer.newLine()
-//    writer.write("<body>")
-//    writer.newLine()
-//    for (i in strings.indices) {
-//        strings[i].trim()
-//        try {
-//            if (strings[i].isEmpty() && strings[i + 1].isNotEmpty()) {
-//                writer.newLine()
-//                writer.write("<p>")
-//                writer.newLine()
-//                writer.write(strings[i + 1])
-//            }
-//            if (
-//                strings[i].isNotEmpty()
-//                && strings[i - 1].isNotEmpty()
-//                && strings[i + 1].isNotEmpty()
-//            ) {
-//                writer.write(strings[i])
-//                writer.newLine()
-//            }
-//            if (
-//                strings[i].isNotEmpty()
-//                && strings[i - 1].isNotEmpty()
-//                && strings[i + 1].isEmpty()
-//            ) {
-//                writer.write(strings[i])
-//                writer.newLine()
-//                writer.write("</p>")
-//            }
-//            if (strings[i].isEmpty() && strings[i + 1].isEmpty()) continue
-//        } catch (e: IndexOutOfBoundsException) {
-//            continue
-//        }
-//    }
-//
-//
-//
-//    writer.write(text)
-//    writer.close()
-
+    val writer = File(outputName).bufferedWriter()
+    var text = File(inputName).readText()
+    text = "\\*\\*(.*?)\\*\\*".toRegex().replace(text)
+    { v -> "<b>" + v.value.replace("**", "") + "</b>" }
+    text = "\\*(.*?)\\*".toRegex().replace(text)
+    { v -> "<i>" + v.value.replace("*", "") + "</i>" }
+    text = "~~(.*?)~~".toRegex().replace(text)
+    { v -> "<s>" + v.value.replace("~~", "") + "</s>" }
+    val strings = text.split("\n")
+    writer.write("<html>")
+    writer.newLine()
+    writer.write("<body>")
+    writer.newLine()
+    writer.write("<p>")
+    var flag = false
+    for (i in strings.indices) {
+        val s = strings[i]
+        if (s.trim().isEmpty() && flag && i + 1 < strings.lastIndex) {
+            writer.write("$s</p><p>")
+            flag = false
+        }
+        if (s.trim().isNotEmpty()) {
+            writer.write(s)
+            flag = true
+        }
+    }
+    writer.write("</p>")
+    writer.write("</body>")
+    writer.write("</html>")
+    writer.close()
 }
 
 /**
