@@ -205,6 +205,11 @@ fun top20Words(inputName: String): Map<String, Int> {
 //    val nonLetterReg = """[^а-яА-Яa-zA-ZёЁ]""".toRegex()
 //    val words = text.split(" ").filter { letterReg.containsMatchIn(it) }
 //    for (word in words) {
+//        if ("""-""".toRegex().containsMatchIn(word)) {
+//            val parts = word.split("-")
+//            map[parts[0]] = map.getOrDefault(parts[0], 0) + 1
+//            map[parts[1]] = map.getOrDefault(parts[1], 0) + 1
+//        }
 //        val wordCleared = nonLetterReg.replace(word, "")
 //        map[wordCleared] = map.getOrDefault(wordCleared, 0) + 1
 //    }
