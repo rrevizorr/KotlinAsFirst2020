@@ -351,9 +351,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     { v -> "<s>" + v.value.replace("~~", "") + "</s>" }
     val strings = text.split("\n")
     writer.write("<html>")
-    writer.newLine()
     writer.write("<body>")
-    writer.newLine()
     writer.write("<p>")
     var check = false
     for (i in strings.indices) {
