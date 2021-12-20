@@ -103,19 +103,6 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
         }.sum()
     }
     return map
-
-//    val map = substrings.associateBy({ it }, { 0 }).toMutableMap()
-//    for ((key, _) in map) {
-//        val reg = Regex(
-//            key,
-//            setOf(RegexOption.IGNORE_CASE, RegexOption.LITERAL)
-//        )
-//        for (line in File(inputName).readLines()) {
-//            map[key] = map[key]!! + reg.findAll(line).count()
-//        }
-//    }
-//    return map
-
 }
 
 /**
