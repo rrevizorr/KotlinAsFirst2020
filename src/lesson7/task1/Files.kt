@@ -341,6 +341,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
 //    writer.write("<body>")
 //    writer.newLine()
 //    for (i in strings.indices) {
+//        strings[i].trim()
 //        try {
 //            if (strings[i].isEmpty() && strings[i + 1].isNotEmpty()) {
 //                writer.newLine()
