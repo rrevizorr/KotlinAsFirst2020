@@ -196,25 +196,23 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  *
  */
 fun top20Words(inputName: String): Map<String, Int> {
-    TODO()
-//    val map = mutableMapOf<String, Int>()
-//    var text = File(inputName).readText().lowercase()
-//    val re = Regex("""\n""")
-//    text = re.replace(text, " ")
-//    val letterReg = """[а-яА-Яa-zA-ZёЁ]""".toRegex()
-//    val nonLetterReg = """[^а-яА-Яa-zA-ZёЁ]""".toRegex()
-//    val words = text.split(" ").filter { letterReg.containsMatchIn(it) }
-//    for (word in words) {
-//        if ("""-""".toRegex().containsMatchIn(word)) {
-//            val parts = word.split("-")
-//            map[parts[0]] = map.getOrDefault(parts[0], 0) + 1
-//            map[parts[1]] = map.getOrDefault(parts[1], 0) + 1
-//        }
-//        val wordCleared = nonLetterReg.replace(word, "")
-//        map[wordCleared] = map.getOrDefault(wordCleared, 0) + 1
-//    }
-//    val list = map.toList().sortedByDescending { (_, v) -> v }
-//    return list.filter { it.second >= list[19].second }.toMap()
+    val map = mutableMapOf<String, Int>()
+    var text = File(inputName).readText().lowercase()
+    text = """\n""".toRegex().replace(text, " ")
+    val letterReg = """[а-яА-Яa-zA-ZёЁ]""".toRegex()
+    val nonLetterReg = """[^а-яА-Яa-zA-ZёЁ]""".toRegex()
+    val words = text.split(" ").filter { letterReg.containsMatchIn(it) }
+    for (word in words) {
+        if ("""-""".toRegex().containsMatchIn(word)) {
+            val parts = word.split("-")
+            map[parts[0]] = map.getOrDefault(parts[0], 0) + 1
+            map[parts[1]] = map.getOrDefault(parts[1], 0) + 1
+        }
+        val wordCleared = nonLetterReg.replace(word, "")
+        map[wordCleared] = map.getOrDefault(wordCleared, 0) + 1
+    }
+    val list = map.toList().sortedByDescending { (_, v) -> v }
+    return list.filter { it.second >= list[19].second }.toMap()
 }
 
 /**
@@ -338,6 +336,8 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     { v -> "<i>" + v.value.replace("*", "") + "</i>" }
     text = "~~([\\s\\S]*?)~~".toRegex().replace(text)
     { v -> "<s>" + v.value.replace("~~", "") + "</s>" }
+    //val strings = text.split("\n")
+    ("""\n""".toRegex().replace(text, "\n "))
     val strings = text.split("\n")
     writer.write("<html>")
     writer.write("<body>")
