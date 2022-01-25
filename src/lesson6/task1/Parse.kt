@@ -2,6 +2,9 @@
 
 package lesson6.task1
 
+import ru.spbstu.ktuples.Tuple0.size
+import java.io.File
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +77,33 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val parts = str.split(" ")
+    val monthsMap = mapOf(
+        "января" to 1,
+        "февраля" to 2,
+        "марта" to 3,
+        "апреля" to 4,
+        "мая" to 5,
+        "июня" to 6,
+        "июля" to 7,
+        "августа" to 8,
+        "сентября" to 9,
+        "октября" to 10,
+        "ноября" to 11,
+        "декабря" to 12
+    )
+    if (parts.size != 3) {
+        return ""
+    } else {
+        val day = parts[0].toInt()
+        val month = monthsMap[parts[1]]
+        val year = parts[2].toInt()
+        if ((month != null) && (((day < 32) && (month != 2)) || ((day < 29) && (month == 2)))) {
+            return String.format("%02d.%02d.%02d", day, month, year)
+        } else return ""
+    }
+}
 
 /**
  * Средняя (4 балла)
@@ -114,7 +143,19 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int? {
+    val mx = mutableListOf<Int>()
+    return if (Regex("""((\s)?((\d{3})|[%-]))*""").matches(jumps)) {
+        val highs = jumps.split(" ")
+        for (i in highs.indices) {
+            if (highs[i].matches(Regex("""\d{3}"""))) {
+                mx.add(highs[i].toInt())
+            }
+        }
+        val maximum = mx.maxOrNull()
+        maximum ?: -1
+    } else -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -130,12 +171,12 @@ fun bestLongJump(jumps: String): Int = TODO()
 fun bestHighJump(jumps: String): Int {
     val resut = mutableListOf<String>()
     val pars = jumps.split(" ")
-    for (i in 1 until pars.size step 2){
+    for (i in 1 until pars.size step 2) {
         if (pars[i - 1] < 0.toString()) return -1
         if ("+" in pars[i]) resut.add(pars[i - 1])
         if (Regex("^-%+0-9").containsMatchIn(pars[i])) return -1
     }
-    return resut.map { it.toIntOrNull() ?: return -1}.maxOrNull() ?: -1
+    return resut.map { it.toIntOrNull() ?: return -1 }.maxOrNull() ?: -1
 }
 
 /**
@@ -147,7 +188,24 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val numberlist = mutableListOf<Int>()
+    val plusminuslist = mutableListOf<String>()
+    if (Regex("""((\d)*(\s[-+]\s)?)*""").matches(expression)) {
+        val startlist = expression.split(" ")
+        for (i in startlist.indices) {
+            if (i % 2 == 0) numberlist.add(startlist[i].toInt())
+            else plusminuslist.add(startlist[i])
+        }
+        var answer = numberlist[0]
+        for (i in plusminuslist.indices) {
+            if (plusminuslist[i] == "+") answer += numberlist[i + 1]
+            else answer -= numberlist[i + 1]
+        }
+        return answer
+    } else throw IllegalArgumentException()
+}
+
 
 /**
  * Сложная (6 баллов)
@@ -163,8 +221,8 @@ fun firstDuplicateIndex(str: String): Int {
     val pars = str.toLowerCase().split(" ")
     if (pars.size <= 1) return -1
     for (i in 1 until pars.size) {
-        if (pars[i] == pars[i-1]) return resut
-        resut += pars[i-1].length + 2 - 1
+        if (pars[i] == pars[i - 1]) return resut
+        resut += pars[i - 1].length + 2 - 1
     }
     return -1
 }
@@ -180,7 +238,26 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    var mx = -0.1
+    var me = ""
+    if (Regex("""([а-яА-Я]*\s(\d)*(\.(\d)*)?(; )?)*""").matches(description)) {
+        val products = description.split("; ")
+        for (i in products.indices) {
+            val res = products[i].split(" ")
+            try {
+                if (res[1].toDouble() > mx) {
+                    mx = res[1].toDouble()
+                    me = res[0]
+                }
+            } catch (e: IndexOutOfBoundsException) {
+                return ""
+            }
+        }
+        return me
+    }
+    return ""
+}
 
 /**
  * Сложная (6 баллов)
@@ -193,7 +270,34 @@ fun mostExpensive(description: String): String = TODO()
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    var result = 0
+    val exp = mapOf(
+        ("I" to 1),
+        ("IV" to 4),
+        ("V" to 5),
+        ("IX" to 9),
+        ("X" to 10),
+        ("XL" to 40),
+        ("L" to 50),
+        ("XC" to 90),
+        ("C" to 100),
+        ("CD" to 400),
+        ("D" to 500),
+        ("CM" to 900),
+        ("M" to 1000)
+    )
+    if (Regex("""(I|IV|V|IX|X|XL|L|XC|C|CD|D|CM|M)*""").matches(roman)) {
+        for (i in roman.indices step 2) {
+            val r1 = exp[roman[i].toString()]!!
+            val r2 = exp[roman[i + 1].toString()]!!
+            if (r1 <= r2) result += r2 - r1
+            else result += r2 + r1
+        }
+        return result
+    }
+    return -1
+}
 
 /**
  * Очень сложная (7 баллов)

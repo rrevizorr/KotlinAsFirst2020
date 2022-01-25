@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import java.util.*
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -63,7 +64,14 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()) {
+        if (line.isEmpty() || line[0] != '_' && line.isNotEmpty()) {
+            writer.write(line)
+            writer.newLine()
+        }
+    }
+    writer.close()
 }
 
 /**
@@ -91,9 +99,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
  */
-fun sibilants(inputName: String, outputName: String) {
-    TODO()
-}
+fun sibilants(inputName: String, outputName: String): Nothing = TODO()
 
 /**
  * Средняя (15 баллов)
@@ -158,7 +164,7 @@ fun centerFile(inputName: String, outputName: String) {
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
     var mx = 0
-    File(inputName).readLines().forEach  {
+    File(inputName).readLines().forEach {
         val y = it.replace(" +".toRegex(), " ")
         mx = maxOf(mx, y.trim().length)
     }
@@ -167,14 +173,14 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         val y = line.replace(" +".toRegex(), " ")
         val pieces = Regex(""" """).split(y.trim()).toMutableList()
         if (pieces.size == 1) {
-            outputSt.write(y.trim( ))
+            outputSt.write(y.trim())
             outputSt.newLine()
         } else if (!line.isEmpty()) {
             var j = 0
             var tempua = mx - y.trim().length
             while (tempua > 0) {
                 pieces[j] += " "
-                if (j < pieces.size - 3 +1)
+                if (j < pieces.size - 3 + 1)
                     j++
                 else
                     j = 0
@@ -187,6 +193,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     }
     outputSt.close()
 }
+
 /**
  * Средняя (14 баллов)
  *
