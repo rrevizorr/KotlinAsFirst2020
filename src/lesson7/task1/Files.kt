@@ -176,22 +176,7 @@ fun sibilants(inputName: String, outputName: String) {
  * 4) Число строк в выходном файле должно быть равно числу строк во входном (в т. ч. пустых)
  *
  */
-fun centerFile(inputName: String, outputName: String) {
-    val outputSt = File(outputName).bufferedWriter()
-    var maxl = 0
-    for (line in File(inputName).readLines()) {
-        val ml = line.trim().length
-        if (ml > maxl)
-            maxl = ml
-    }
-    for (ln in File(inputName).readLines()) {
-        val lnlength = ln.trim().length
-        outputSt.write(" ".repeat((maxl - lnlength) / 2))
-        outputSt.write(ln.trim())
-        outputSt.newLine()
-    }
-    outputSt.close()
-}
+fun centerFile(inputName: String, outputName: String): Nothing = TODO()
 
 /**
  * Сложная (20 баллов)
@@ -220,37 +205,7 @@ fun centerFile(inputName: String, outputName: String) {
  * 7) В самой длинной строке каждая пара соседних слов должна быть отделена В ТОЧНОСТИ одним пробелом
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
-fun alignFileByWidth(inputName: String, outputName: String) {
-    var mx = 0
-    File(inputName).readLines().forEach {
-        val y = it.replace(" +".toRegex(), " ")
-        mx = maxOf(mx, y.trim().length)
-    }
-    val outputSt = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()) {
-        val y = line.replace(" +".toRegex(), " ")
-        val pieces = Regex(""" """).split(y.trim()).toMutableList()
-        if (pieces.size == 1) {
-            outputSt.write(y.trim())
-            outputSt.newLine()
-        } else if (!line.isEmpty()) {
-            var j = 0
-            var tempua = mx - y.trim().length
-            while (tempua > 0) {
-                pieces[j] += " "
-                if (j < pieces.size - 3 + 1)
-                    j++
-                else
-                    j = 0
-                tempua--
-            }
-            outputSt.write(pieces.joinToString(" "))
-            outputSt.newLine()
-        } else
-            outputSt.newLine()
-    }
-    outputSt.close()
-}
+fun alignFileByWidth(inputName: String, outputName: String): Nothing = TODO()
 
 /**
  * Средняя (14 баллов)
