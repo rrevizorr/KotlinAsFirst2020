@@ -341,10 +341,7 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
-fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val one = File(inputName).readText().split(" ").toMutableList()
-    println(one)
-}
+fun markdownToHtmlSimple(inputName: String, outputName: String): Nothing = TODO()
 
 /**
  * Сложная (23 балла)
