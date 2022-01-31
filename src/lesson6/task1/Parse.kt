@@ -100,7 +100,7 @@ fun dateStrToDigit(str: String): String {
         val month = monthsMap[parts[1]]
         val year = parts[2].toInt()
         if ((month != null) && (((day < 32) && (month != 2)) || ((day < 29) && (month == 2)))) {
-            return String.format("%02d.%02d.%02d", day, month, year)
+            return String.format("%02d.%02d.%d", day, month, year)
         } else return ""
     }
 }
@@ -241,7 +241,7 @@ fun firstDuplicateIndex(str: String): Int {
 fun mostExpensive(description: String): String {
     var mx = -0.1
     var me = ""
-    if (Regex("""([а-яА-Я]*\s(\d)*(\.(\d)*)?(; )?)*""").matches(description)) {
+    if (Regex("""([а-яА-Яa-zA-Z]*\s(\d)*(\.(\d)*)?(; )?)*""").matches(description)) {
         val products = description.split("; ")
         for (i in products.indices) {
             val res = products[i].split(" ")
@@ -270,34 +270,7 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int {
-    var result = 0
-    val exp = mapOf(
-        ("I" to 1),
-        ("IV" to 4),
-        ("V" to 5),
-        ("IX" to 9),
-        ("X" to 10),
-        ("XL" to 40),
-        ("L" to 50),
-        ("XC" to 90),
-        ("C" to 100),
-        ("CD" to 400),
-        ("D" to 500),
-        ("CM" to 900),
-        ("M" to 1000)
-    )
-    if (Regex("""(I|IV|V|IX|X|XL|L|XC|C|CD|D|CM|M)*""").matches(roman)) {
-        for (i in roman.indices step 2) {
-            val r1 = exp[roman[i].toString()]!!
-            val r2 = exp[roman[i + 1].toString()]!!
-            if (r1 <= r2) result += r2 - r1
-            else result += r2 + r1
-        }
-        return result
-    }
-    return -1
-}
+fun fromRoman(roman: String): Int = TODO()
 
 /**
  * Очень сложная (7 баллов)

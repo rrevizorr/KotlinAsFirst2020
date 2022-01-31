@@ -83,7 +83,36 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val finish = mutableMapOf<String, Int>()
+    val name = File(inputName).readText()
+    for (i in substrings.indices) {
+        finish[substrings[i].lowercase(Locale.getDefault())] = 0
+    }
+    val substrings_lower = mutableListOf<String>()
+    for (i in substrings.indices) {
+        substrings_lower.add(substrings[i].lowercase(Locale.getDefault()))
+    }
+    for (i in substrings.indices) {
+        var count = 0
+        var j = 0
+        while (j <= name.lastIndex) {
+            val first = name.lowercase(Locale.getDefault()).indexOf(substrings_lower[i], j)
+            if (first != -1) {
+                count++
+                j = first + 1
+            } else break
+        }
+        finish[substrings_lower[i]] = count
+    }
+    for (i in substrings.indices) {
+        val z: Int
+        z = finish[substrings_lower[i]]!!
+        finish.remove(substrings_lower[i])
+        finish[substrings[i]] = z
+    }
+    return finish
+}
 
 
 /**
@@ -99,7 +128,36 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
  */
-fun sibilants(inputName: String, outputName: String): Nothing = TODO()
+fun sibilants(inputName: String, outputName: String) {
+    val name = File(inputName).readText().split(" ").toMutableList()
+    val n = mutableListOf<String>()
+    for (i in name.indices) {
+        val b = name[i].toList().toMutableList()
+        for (j in b.indices) {
+            try {
+                b[j + 1]
+            } catch (e: IndexOutOfBoundsException) {
+                continue
+            }
+            if (b[j] == 'ж' || b[j] == 'ч' || b[j] == 'ш' || b[j] == 'щ' || b[j] == 'Ж' || b[j] == 'Ч' || b[j] == 'Ш' || b[j] == 'Щ') {
+                if (b[j + 1] == 'ы') b[j + 1] = 'и'
+                if (b[j + 1] == 'я') b[j + 1] = 'а'
+                if (b[j + 1] == 'ю') b[j + 1] = 'у'
+                if (b[j + 1] == 'Ы') b[j + 1] = 'И'
+                if (b[j + 1] == 'Я') b[j + 1] = 'А'
+                if (b[j + 1] == 'Ю') b[j + 1] = 'У'
+            }
+        }
+        n.add(b.fold("") { previousResult, element -> previousResult + element })
+    }
+    var inputtName = n[0]
+    for (k in 1..n.lastIndex) {
+        inputtName += " ${n[k]}"
+    }
+    val writer = File(outputName).bufferedWriter()
+    writer.write(inputtName)
+    writer.close()
+}
 
 /**
  * Средняя (15 баллов)
@@ -329,7 +387,8 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
+    val one = File(inputName).readText().split(" ").toMutableList()
+    println(one)
 }
 
 /**
