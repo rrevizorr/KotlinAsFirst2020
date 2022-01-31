@@ -81,7 +81,7 @@ fun digitNumber(n: Int): Int {
     var fl = 1
     while (fl == 1 || c != 0) {
         c /= 10
-        z ++
+        z++
         fl = 0
     }
     return z
@@ -94,12 +94,11 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var f1 =1
-    var f2 = 1
-    var fs = 0
     var k = 0
-    while (k<n-2){
-        fs = f1 +f2
+    var f2 = 1
+    var f1 = 1
+    while (k < n - 2) {
+        val fs = f1 + f2
         f1 = f2
         f2 = fs
         k++
@@ -113,6 +112,7 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int = TODO()
+
 /**
  * Простая (2 балла)
  *
@@ -120,7 +120,8 @@ fun minDivisor(n: Int): Int = TODO()
  */
 fun maxDivisor(n: Int): Int {
     var m = 1
-    for (z in 2 until n - 1) {
+    val t = n.toDouble().pow(0.5)
+    for (z in t.toInt() until n - 1) {
         if ((n % z == 0) && (z > m)) m = z
     }
     return m
@@ -225,14 +226,14 @@ fun cos(x: Double, eps: Double): Double = TODO()
 fun squareSequenceDigit(n: Int): Int {
     var a = 1
     var dn = 0
-    var count=0
-    while (dn < n){
+    var count = 0
+    while (dn < n) {
         count = sqr(a)
         a++
-        dn+=digitNumber(count)
+        dn += digitNumber(count)
     }
-    while (dn !=n){
-        count /=10
+    while (dn != n) {
+        count /= 10
         dn--
     }
     return count % 10
@@ -263,9 +264,9 @@ fun fibSequenceDigit(n: Int): Int {
         } else count = a
         fibremember += digitNumber(count)
     }
-    while (fibremember !=n){
+    while (fibremember != n) {
         count /= 10
-        fibremember --
+        fibremember--
     }
     return count % 10
 }

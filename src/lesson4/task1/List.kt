@@ -283,14 +283,17 @@ fun roman(n: Int): String {
     while (n_ > 0) {
         while (n_ - rNum[k] >= 0) {
             n_ -= rNum[k]
-            str += rAb[k]
+            str = buildString {
+                append(str)
+                append(rAb[k])
+            }
         }
         k += 1
     }
     return str
 }
 
-    /**
+/**
  * Очень сложная (7 баллов)
  *
  * Записать заданное натуральное число 1..999999 прописью по-русски.
