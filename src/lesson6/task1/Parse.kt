@@ -197,7 +197,7 @@ fun firstDuplicateIndex(str: String): Int = TODO()
 fun mostExpensive(description: String): String {
     var mx = -0.1
     var me = ""
-    if (Regex("""([а-яА-Яa-zA-Z0-9~!@#\$%^&*\-+\[\]\'_\(\)\,<>=]*\s(\d)*(\.(\d)*)?(; )?)*""").matches(description)) {
+    if (Regex("""([а-яА-Яa-zA-Z0-9~!@#\$%^&*\-+\[\]\'_\(\)\,<>=${'\\'}]*\s(\d)*(\.(\d)*)?(; )?)*""").matches(description)) {
         val products = description.split("; ")
         for (i in products.indices) {
             val res = products[i].split(" ")
