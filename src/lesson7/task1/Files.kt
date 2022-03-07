@@ -2,8 +2,12 @@
 
 package lesson7.task1
 
+import ru.spbstu.wheels.getEntry
+import ru.spbstu.wheels.out
 import java.io.File
 import java.util.*
+import java.io.IOException
+import java.io.InputStream
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -114,7 +118,6 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     return finish
 }
 
-
 /**
  * Средняя (12 баллов)
  *
@@ -158,6 +161,7 @@ fun sibilants(inputName: String, outputName: String) {
     writer.write(inputtName)
     writer.close()
 }
+
 
 /**
  * Средняя (15 баллов)
@@ -227,7 +231,25 @@ fun alignFileByWidth(inputName: String, outputName: String): Nothing = TODO()
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+    val map = mutableMapOf<String, Int>()
+    var text = File(inputName).readText().lowercase()
+    text = """\n""".toRegex().replace(text, " ")
+    val letterReg = """[а-яА-Яa-zA-ZёЁ]""".toRegex()
+    val nonLetterReg = """[^а-яА-Яa-zA-ZёЁ]""".toRegex()
+    val words = text.split(" ").filter { letterReg.containsMatchIn(it) }
+    for (word in words) {
+        if ("""-""".toRegex().containsMatchIn(word)) {
+            val parts = word.split("-")
+            map[parts[0]] = map.getOrDefault(parts[0], 0) + 1
+            map[parts[1]] = map.getOrDefault(parts[1], 0) + 1
+        }
+        val wordCleared = nonLetterReg.replace(word, "")
+        map[wordCleared] = map.getOrDefault(wordCleared, 0) + 1
+    }
+    val list = map.toList().sortedByDescending { (_, v) -> v }
+    return list.filter { it.second >= list[23].second }.toMap()
+}
 
 /**
  * Средняя (14 баллов)
@@ -509,4 +531,50 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
+
+/**
+ * В файле с именем inputName заданы ежедневные сведения о
+ * количестве выпавших осадков (в мм) в различные месяцы года,
+ * всего не более чем 31 значение в каждой строке и
+ * не более 12 строк во всём файле, например:
+ *
+ * Март 0 1 0 3 41 2 0 0 13 16 20 8 0 4 8 1 0 0 0 7 12 0 4 9
+ * Апрель 0 0 0 17 0 0 11 48 42 0 0 1 7 15 18 0 0 0 0 0 8 2 17 0
+ * Май 10 15 48 21 0 0 17 22 30 0 0 13 0 0 2 5 7 0 0 0 1 10 3
+ *
+ * Каждая строка начинается с названия месяца, за которым
+ * следует последовательность целых чисел - уровень осадков в мм
+ * в различные дни этого месяца, начиная с 1-го. Порядок месяцев
+ * в файле должен соответствовать реальному (следующий месяц всегда
+ * ниже предыдущего).
+ *
+ * В строковом параметре days задан интервал дат
+ * либо в формате “Апрель 9..15”  (дни в одном месяце),
+ * либо в формате “Март 22..Май 8” (дни в разных месяцах).
+ *
+ * Необходимо рассчитать максимальный уровень осадков за один день
+ * в заданном интервале дат. Например, для “Апрель 9..15” это 42,
+ * для “Март 22..Май 8” это 48. Отсутствующие дни игнорировать.
+ *
+ * “Удовлетворительно” -- используется только первый формат для
+ * параметра days - все дни в одном месяце
+ *
+ * “Хорошо” -- может использоваться как первый, так и второй
+ * формат для параметра days, то есть, интервал может содержать
+ * дни в разных месяцах
+ *
+ * “Отлично” -- результат функции должен содержать не только
+ * максимальный уровень осадков, но и список дней,
+ * в которых он был достигнут
+ * (42, 9 апреля или 48, 8 апреля, 3 мая для примеров выше)
+ *
+ * При нарушении форматов входных данных следует выбрасывать
+ * исключение IllegalArgumentException. При невозможности
+ * прочитать файл выбрасывать исключение IOException.
+ *
+ * Предложить имя и тип результата функции. Кроме функции
+ * следует написать тесты, подтверждающие её работоспособность.
+ */
+
+
 

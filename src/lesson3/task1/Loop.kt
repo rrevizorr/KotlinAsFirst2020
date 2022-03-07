@@ -169,7 +169,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var number = n
+    var result = 0
+    while (number != 0) {
+        result = result * 10 + number % 10
+        number /= 10
+    }
+    return result
+}
 
 /**
  * Средняя (3 балла)
@@ -238,7 +246,6 @@ fun squareSequenceDigit(n: Int): Int {
     }
     return count % 10
 }
-
 
 /**
  * Сложная (5 баллов)
